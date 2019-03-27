@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import Ionicon from 'react-ionicons'
 
 const PriceList = ({items, onModifyItem, onDeleteItem}) => {
     return (
@@ -8,9 +10,14 @@ const PriceList = ({items, onModifyItem, onDeleteItem}) => {
                     <li className="list-group-item d-flex 
                         justify-content-between align-items-center"
                         key={item.id}>
-        
                        <span className="col-1 badge badge-primary">
-                        {item.category.name}
+                        <Ionicon
+                            className="rounded-circle"
+                            fontSize="30px"
+                            style={{backgroundColor: '#007bff', padding: '5px'}}
+                            color={'#fff'}
+                            icon={item.category.iconName}
+                        />
                        </span> 
                        <span className="col-5">
                         {item.title}
@@ -20,16 +27,28 @@ const PriceList = ({items, onModifyItem, onDeleteItem}) => {
                         ${item.price}
                        </span>
                        <span className="col-2">{item.date}</span>
-                        <button className="col-1 btn btn-primary"
+                        <a className="col-1"
                                 onClick={()=>{onModifyItem(item)}}
                         >
-                            eidt
-                        </button>
-                        <button className="col-1 btn btn-danger"
-                                onClick={()=>{onModifyItem(item)}}
+                                <Ionicon 
+                                    className="rounded-circle"
+                                    fontSize="30px"
+                                    style={{ backgroundColor: '#28a745', padding: '5px'}}
+                                    color={'#fff'}
+                                    icon='ios-create-outline'
+                                />
+                        </a>
+                        <a className="col-1"
+                                onClick={()=>{onDeleteItem(item)}}
                         > 
-                            delete
-                        </button>
+                             <Ionicon 
+                                    className="rounded-circle"
+                                    fontSize="30px"
+                                    style={{ backgroundColor: '#dc3545', padding: '5px'}}
+                                    color={'#fff'}
+                                    icon='ios-close'
+                              />
+                        </a>
                     </li>
                 ))
             }
@@ -37,4 +56,12 @@ const PriceList = ({items, onModifyItem, onDeleteItem}) => {
     )
 }
 
+PriceList.propTypes = {
+    items: PropTypes.array.isRequired,
+    onModifyItem: PropTypes.func.isRequired,
+    onDeleteItem: PropTypes.func.isRequired,
+}
+PriceList.defaultProps = {
+    onModifyItem:()=>{}
+}
 export default PriceList
